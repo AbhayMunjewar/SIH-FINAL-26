@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BhoomiDrishti — Secure Portal Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      background-color: var(--bg-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .login-container {
+      width: 100%;
+      max-width: 480px;
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      padding: 32px;
+    }
+    .login-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .login-header .emblem {
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+    .login-header h1 {
+      font-size: 22px;
+      color: var(--primary-navy);
+      font-weight: 700;
+    }
+    .login-header p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .demo-credentials-box {
+      margin-top: 24px;
+      background: var(--bg-main);
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      font-size: 12px;
+    }
+    .demo-credential-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border-color);
+      cursor: pointer;
+    }
+    .demo-credential-row:hover {
+      background: rgba(13, 59, 102, 0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-banner" style="position: relative; margin-bottom: 20px; width: 100%; max-width: 480px; border-radius: 6px;">
+    ⚠️ SIH 2026 PROTOTYPE — DEMO AUTHENTICATION
+  </div>
+
+  <div class="login-container">
+    <div class="login-header">
+      <div class="emblem">🇮🇳</div>
+      <h1>BhoomiDrishti</h1>
+      <p>National Digital Platform for Land Governance Research & Policy Innovation</p>
+      <p>Department of Land Resources | Ministry of Rural Development</p>
+    </div>
+
+    <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+      <div class="form-group">
+        <label class="form-label" for="email">Username / Email</label>
+        <input type="email" id="email" class="form-control" placeholder="e.g. admin@bhoomi.gov.in" required value="admin@bhoomi.gov.in">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input type="password" id="password" class="form-control" required value="Demo@123">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="role">User Role</label>
+        <select id="role" class="form-control" required>
+          <option value="admin">System Administrator</option>
+          <option value="data">Data & Integration Officer</option>
+          <option value="research">Research Officer</option>
+          <option value="policy">Policy & Legal Officer</option>
+          <option value="decision">Planning & Decision Officer</option>
+          <option value="external">External Knowledge Partner</option>
+        </select>
+      </div>
+
+      <button type="submit" id="submitBtn" class="btn btn-primary btn-block" style="padding: 10px; margin-top: 8px;">
+        Sign In Securely
+      </button>
+
+      <div style="text-align: center; margin: 16px 0 8px 0;">
+        <span style="font-size: 12px; color: var(--text-muted);">OR</span>
+      </div>
+
+      <a href="public_portal.html" class="btn btn-secondary btn-block" style="text-align: center; display: block;">
+        👁️ Explore as Guest (Public Portal View)
+      </a>
+    </form>
+
+    <div class="demo-credentials-box">
+      <div style="font-weight: 700; color: var(--primary-navy); margin-bottom: 8px;">
+        Quick Fill Credentials (Click to Autofill):
+      </div>
+      <div class="demo-credential-row" onclick="autofill('admin@bhoomi.gov.in', 'admin')">
+        <span>🔑 System Admin</span>
+        <span style="color: var(--info-blue);">admin@bhoomi.gov.in</span>
+      </div>
+      <div class="demo-credential-row" onclick="autofill('data@bhoomi.gov.in', 'data')">
+        <span>🗄️ Data Officer</span>
+        <span style="color: var(--info-blue);">data@bhoomi.gov.in</span>
+      </div>
+      <div class="demo-credential-row" onclick="autofill('research@bhoomi.gov.in', 'research')">
+        <span>🔍 Research Officer</span>
+        <span style="color: var(--info-blue);">research@bhoomi.gov.in</span>
+      </div>
+      <div class="demo-credential-row" onclick="autofill('policy@bhoomi.gov.in', 'policy')">
+        <span>⚖️ Policy & Legal Officer</span>
+        <span style="color: var(--info-blue);">policy@bhoomi.gov.in</span>
+      </div>
+      <div class="demo-credential-row" onclick="autofill('planning@bhoomi.gov.in', 'decision')">
+        <span>🎯 Planning & Decision</span>
+        <span style="color: var(--info-blue);">planning@bhoomi.gov.in</span>
+      </div>
+      <div class="demo-credential-row" onclick="autofill('researcher@iitb.ac.in', 'external')">
+        <span>🎓 External Researcher</span>
+        <span style="color: var(--info-blue);">researcher@iitb.ac.in</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; font-size: 11px; color: var(--text-muted); text-align: center;">
+    🔒 Secure Government Platform Simulation | Data Classification: Internal | BhoomiDrishti v1.0
+  </div>
+
+  <script src="js/mockdata.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    function autofill(email, role) {
+      document.getElementById('email').value = email;
+      document.getElementById('password').value = 'Demo@123';
+      document.getElementById('role').value = role;
+    }
+
+    function handleLoginSubmit(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const role = document.getElementById('role').value;
+      const btn = document.getElementById('submitBtn');
+
+      btn.innerText = "Authenticating Session...";
+      btn.disabled = true;
+
+      setTimeout(() => {
+        const result = BhoomiAuth.login(email, password, role);
+        if (result.success) {
+          window.location.href = result.redirectUrl;
+        } else {
+          alert(result.message);
+          btn.innerText = "Sign In Securely";
+          btn.disabled = false;
+        }
+      }, 600);
+    }
+  </script>
+</body>
+</html>

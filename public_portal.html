@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BhoomiDrishti — Public Guest Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="public-layout">
+
+  <div class="layout-container" style="margin-top: calc(var(--header-height) + var(--banner-height));">
+    <main class="main-content" style="margin-left: 0; max-width: 1200px; margin: 0 auto; padding: 24px;">
+      
+      <!-- HERO BANNER -->
+      <div class="card" style="background: linear-gradient(135deg, #0D3B66 0%, #072644 100%); color: white; padding: 32px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <span class="role-badge public" style="background: var(--accent-saffron); color: var(--primary-navy-dark); margin-bottom: 12px; display: inline-block;">
+              PUBLIC KNOWLEDGE ACCESS
+            </span>
+            <h1 style="font-size: 28px; font-weight: 700; margin-bottom: 8px;">BhoomiDrishti</h1>
+            <p style="font-size: 15px; color: #C0CDE0; max-width: 680px; margin-bottom: 20px;">
+              National Digital Platform for Land Governance Research & Policy Innovation
+              <br>Department of Land Resources | Ministry of Rural Development | Government of India
+            </p>
+            <div style="display: flex; gap: 12px;">
+              <a href="index.html" class="btn btn-saffron">🔐 Sign In for Full Access</a>
+              <button onclick="document.getElementById('public-search-section').scrollIntoView()" class="btn btn-secondary">🔍 Browse Public Research</button>
+            </div>
+          </div>
+          <div style="font-size: 72px; opacity: 0.8;">🇮🇳</div>
+        </div>
+      </div>
+
+      <!-- PUBLIC TABS -->
+      <div class="nav-tabs">
+        <button class="tab-link active" onclick="switchPublicTab('research')">📚 Public Research</button>
+        <button class="tab-link" onclick="switchPublicTab('datasets')">📊 Open Datasets</button>
+        <button class="tab-link" onclick="switchPublicTab('innovation')">💡 Innovation Opportunities</button>
+        <button class="tab-link" onclick="switchPublicTab('policies')">📜 Policy Highlights</button>
+      </div>
+
+      <!-- TAB 1: PUBLIC RESEARCH -->
+      <div id="tab-research" class="tab-pane active">
+        <div id="public-search-section" class="card">
+          <div class="card-header">
+            <h3 class="card-title">🔍 Search Open-Access Research Repository</h3>
+            <span class="demo-badge">DEMO DATA</span>
+          </div>
+          <div class="form-group">
+            <input type="text" id="publicSearchInput" class="form-control" placeholder="Search by topic, state, or author (e.g., 'Land Consolidation', 'Maharashtra', 'Dispute')..." onkeyup="renderPublicResearch()">
+          </div>
+          <div id="publicDocsGrid" class="grid-2"></div>
+        </div>
+      </div>
+
+      <!-- TAB 2: OPEN DATASETS -->
+      <div id="tab-datasets" class="tab-pane">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">📊 Open Land-Governance Datasets</h3>
+            <span class="demo-badge">PUBLIC ACCESS</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+            The following non-restricted datasets are published for open research and institutional analysis:
+          </p>
+          <div class="table-responsive">
+            <table class="gov-table">
+              <thead>
+                <tr>
+                  <th>Dataset Name</th>
+                  <th>Source Agency</th>
+                  <th>Coverage</th>
+                  <th>Format</th>
+                  <th>Classification</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>India Land Use Land Cover (LULC 2023)</td>
+                  <td>ISRO NRSC</td>
+                  <td>National</td>
+                  <td>GeoTIFF / Vector</td>
+                  <td><span class="status-pill status-active">Public</span></td>
+                  <td><button onclick="BhoomiShared.showToast('Download started for LULC 2023 GeoTIFF dataset.', 'success')" class="btn btn-sm btn-secondary">⬇️ Download (2.4 GB)</button></td>
+                </tr>
+                <tr>
+                  <td>Census District Demographics 2011</td>
+                  <td>RGI India</td>
+                  <td>National</td>
+                  <td>CSV / GeoJSON</td>
+                  <td><span class="status-pill status-active">Public</span></td>
+                  <td><button onclick="BhoomiShared.showToast('Download started for Census District CSV.', 'success')" class="btn btn-sm btn-secondary">⬇️ Download (124 MB)</button></td>
+                </tr>
+                <tr>
+                  <td>IMD 20-Year Rainfall Trend Series</td>
+                  <td>MoES IMD</td>
+                  <td>State-wise</td>
+                  <td>CSV</td>
+                  <td><span class="status-pill status-active">Public</span></td>
+                  <td><button onclick="BhoomiShared.showToast('Download started for IMD Rainfall CSV.', 'success')" class="btn btn-sm btn-secondary">⬇️ Download (89 MB)</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: INNOVATION HUB -->
+      <div id="tab-innovation" class="tab-pane">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">💡 National Innovation Opportunities (Hackathons & Grants)</h3>
+            <span class="demo-badge">OPEN CALLS</span>
+          </div>
+          <div class="grid-2">
+            <div style="border: 1px solid var(--border-color); padding: 16px; border-radius: var(--radius-md);">
+              <span class="status-pill status-active">REGISTRATION OPEN</span>
+              <h4 style="color: var(--primary-navy); margin: 8px 0;">🏆 LandTech National Hackathon 2026</h4>
+              <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px;">Organizer: DoLR + NIC | Prize Pool: ₹10 Lakhs</p>
+              <a href="index.html" class="btn btn-sm btn-primary">Login to Register Team</a>
+            </div>
+            <div style="border: 1px solid var(--border-color); padding: 16px; border-radius: var(--radius-md);">
+              <span class="status-pill status-active">OPEN CALL</span>
+              <h4 style="color: var(--primary-navy); margin: 8px 0;">💰 National Land Governance Research Grant</h4>
+              <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px;">Funding Body: DoLR / ICSSR | Up to ₹25 Lakhs per project</p>
+              <a href="index.html" class="btn btn-sm btn-primary">Login to Submit Application</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: POLICY HIGHLIGHTS -->
+      <div id="tab-policies" class="tab-pane">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">📜 Key Land Governance Policy Frameworks</h3>
+            <span class="demo-badge">AUTHORITATIVE DIGEST</span>
+          </div>
+          <div id="publicPoliciesList" style="display: grid; gap: 16px;"></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/mockdata.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/public.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      BhoomiShared.init("public_portal.html", "welcome");
+      renderPublicResearch();
+      renderPublicPolicies();
+    });
+
+    function switchPublicTab(tabName) {
+      document.querySelectorAll('.tab-link').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('tab-' + tabName).classList.add('active');
+    }
+  </script>
+</body>
+</html>

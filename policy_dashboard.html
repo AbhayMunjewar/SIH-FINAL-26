@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BhoomiDrishti — Policy & Legal Officer Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="layout-container">
+    <main class="main-content">
+      
+      <div class="breadcrumb">
+        <a href="policy_dashboard.html">Home</a>
+        <span class="breadcrumb-separator">></span>
+        <span>Policy & Legal Frameworks</span>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <div>
+          <h1 class="page-header-title">Policy & Legal Officer Dashboard</h1>
+          <p class="page-header-subtitle">Monitors national & state policy performance, legal constraints, and reform simulations</p>
+        </div>
+        <button onclick="runPolicySimulation()" class="btn btn-primary">🎮 Run Policy Reform Simulation</button>
+      </div>
+
+      <!-- POLICY PERFORMANCE MONITORING SECTION (REQ 8) -->
+      <div class="card" id="performance">
+        <div class="card-header">
+          <h3 class="card-title">📈 Policy Performance Monitoring (Requirement 8)</h3>
+          <span class="demo-badge">NATIONAL INDICATORS</span>
+        </div>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+          Tracks baseline vs current policy performance metrics across active land governance reforms:
+        </p>
+        <div class="table-responsive">
+          <table class="gov-table">
+            <thead>
+              <tr>
+                <th>Policy Initiative</th>
+                <th>Jurisdiction</th>
+                <th>Baseline Metric</th>
+                <th>Current Indicator</th>
+                <th>Target Goal</th>
+                <th>Trend</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: 600; color: var(--primary-navy);">Land Records Digitization Initiative (DILRMP)</td>
+                <td>National</td>
+                <td>42% Digitized (2018)</td>
+                <td><strong>89.4% Digitized</strong></td>
+                <td>95% Target</td>
+                <td><span class="trend-up">▲ Improving</span></td>
+                <td><span class="status-pill status-active">On Track</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600; color: var(--primary-navy);">SVAMITVA Property Card Distribution</td>
+                <td>Central / States</td>
+                <td>0 Village Cards (2020)</td>
+                <td><strong>1.42 Cr Cards Issued</strong></td>
+                <td>2.0 Cr Target</td>
+                <td><span class="trend-up">▲ Improving</span></td>
+                <td><span class="status-pill status-active">On Track</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600; color: var(--primary-navy);">Fast-Track Land Dispute Resolution Cells</td>
+                <td>Maharashtra</td>
+                <td>18.5 Month Resolution</td>
+                <td><strong>14.2 Month Resolution</strong></td>
+                <td>12.0 Month Target</td>
+                <td><span class="trend-up">▲ Improving</span></td>
+                <td><span class="status-pill status-partial">Moderate</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- POLICY REPOSITORY -->
+      <div class="card" id="repo">
+        <div class="card-header">
+          <h3 class="card-title">📜 Central & State Policy Repository</h3>
+          <span class="demo-badge">AUTHORITATIVE LAWS</span>
+        </div>
+        <div id="policyDocsGrid" class="grid-2"></div>
+      </div>
+
+      <!-- POLICY REFORM SIMULATION ENGINE -->
+      <div class="card" id="simulation">
+        <div class="card-header">
+          <h3 class="card-title">🎮 Policy Reform Simulation Engine</h3>
+          <span class="demo-badge">SIMULATED SCENARIO</span>
+        </div>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+          Simulate the likely outcomes of proposed policy reforms on land availability and population impact:
+        </p>
+        <div class="grid-3">
+          <div class="form-group">
+            <label class="form-label">Proposed Policy Reform</label>
+            <select id="simPolicySelect" class="form-control">
+              <option value="p1">Land Pooling Model for Infrastructure Corridors</option>
+              <option value="p2">Streamlined Non-Agricultural (NA) Land Conversion</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Target Region</label>
+            <select class="form-control"><option>Maharashtra (Nagpur District)</option></select>
+          </div>
+          <div class="form-group" style="display: flex; align-items: flex-end;">
+            <button onclick="runPolicySimulation()" class="btn btn-primary btn-block">Run Simulation</button>
+          </div>
+        </div>
+
+        <div id="simulationOutput" style="margin-top: 16px;"></div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/mockdata.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/policy.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      BhoomiShared.init("policy_dashboard.html", "overview");
+      renderPolicies();
+    });
+  </script>
+</body>
+</html>

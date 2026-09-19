@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BhoomiDrishti — Planning & Decision Officer Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .gis-map-container {
+      width: 100%;
+      height: 360px;
+      background: #1E293B;
+      border-radius: var(--radius-md);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    .map-legend {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: rgba(15, 23, 42, 0.85);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      display: flex;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="layout-container">
+    <main class="main-content">
+      
+      <div class="breadcrumb">
+        <a href="decision_dashboard.html">Home</a>
+        <span class="breadcrumb-separator">></span>
+        <span>Decision Support Ecosystem</span>
+      </div>
+
+      <!-- ACTIVE PROJECT BANNER -->
+      <div class="card" style="background: linear-gradient(135deg, #0D3B66 0%, #1A6B3C 100%); color: white; padding: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <span class="role-badge decision" style="background: var(--accent-saffron); color: var(--primary-navy-dark); margin-bottom: 8px; display: inline-block;">ACTIVE DECISION WORKSPACE</span>
+            <h2 style="font-size: 20px; font-weight: 700;">📁 Proposed Nagpur → Manali Highway Project</h2>
+            <p style="font-size: 13px; color: #E0E6ED; margin-top: 4px;">Cross-Dashboard Synthesis: Data, Research, Policy & GIS Layers</p>
+          </div>
+          <button onclick="generateEvidenceReportModal()" class="btn btn-saffron">📄 Export Official Evidence Report</button>
+        </div>
+      </div>
+
+      <!-- GIS ANALYSIS SECTION -->
+      <div class="card" id="gis">
+        <div class="card-header">
+          <h3 class="card-title">🗺️ Interactive GIS Spatial Overlay & Route Corridors</h3>
+          <span class="demo-badge">SIMULATED GIS</span>
+        </div>
+        
+        <div class="gis-map-container" id="gisMapCanvas">
+          <!-- SVG MAP SIMULATION -->
+          <svg width="100%" height="100%" viewBox="0 0 800 360">
+            <!-- Background Zone Shapes -->
+            <rect x="50" y="80" width="300" height="180" fill="#2ECC71" opacity="0.2" />
+            <text x="60" y="100" fill="#2ECC71" font-size="11" font-weight="600">Agricultural Zone (High Yield)</text>
+
+            <rect x="420" y="40" width="280" height="150" fill="#8B4513" opacity="0.3" />
+            <text x="430" y="60" fill="#E2E8F0" font-size="11" font-weight="600">Notified Forest Land (Clearance Required)</text>
+
+            <circle cx="200" cy="240" r="40" fill="#3498DB" opacity="0.3" />
+            <text x="180" y="245" fill="#60A5FA" font-size="10">Water Reservoir</text>
+
+            <!-- Route Corridors -->
+            <!-- Route A (Red) -->
+            <path d="M 80 300 Q 250 180 720 80" stroke="#EF4444" stroke-width="4" stroke-dasharray="6,4" fill="none" />
+            
+            <!-- Route B (Blue - Bypass) -->
+            <path d="M 80 300 Q 200 80 720 80" stroke="#3B82F6" stroke-width="4" stroke-dasharray="6,4" fill="none" />
+
+            <!-- Route C (Purple) -->
+            <path d="M 80 300 Q 400 280 720 80" stroke="#A855F7" stroke-width="4" stroke-dasharray="6,4" fill="none" />
+
+            <!-- City Markers -->
+            <circle cx="80" cy="300" r="6" fill="#F4A716" />
+            <text x="70" y="325" fill="white" font-size="12" font-weight="700">Nagpur</text>
+
+            <circle cx="720" cy="80" r="6" fill="#F4A716" />
+            <text x="710" y="65" fill="white" font-size="12" font-weight="700">Manali</text>
+          </svg>
+
+          <div class="map-legend">
+            <span><strong style="color: #EF4444;">---</strong> Route A (Direct)</span>
+            <span><strong style="color: #3B82F6;">---</strong> Route B (Forest Bypass)</span>
+            <span><strong style="color: #A855F7;">---</strong> Route C (HW Expansion)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEUTRAL SCENARIO COMPARISON TABLE (RULE F) -->
+      <div class="card" id="scenarios">
+        <div class="card-header">
+          <h3 class="card-title">🎯 Multi-Criteria Scenario Comparison</h3>
+          <span class="demo-badge">DECISION SUPPORT NEUTRAL</span>
+        </div>
+        <div class="alert-box alert-info">
+          ℹ️ <strong>Rule F Compliance:</strong> Decision support observations highlight analytical metrics (e.g. lowest forest overlap) without autonomous AI decision-making. Final decisions rest with government authorities.
+        </div>
+        <div class="table-responsive">
+          <table class="gov-table" id="scenariosTable">
+            <thead>
+              <tr>
+                <th>Scenario Route</th>
+                <th>Distance</th>
+                <th>Agri Land Impact</th>
+                <th>Forest Overlap</th>
+                <th>Population Exposure</th>
+                <th>Legal Constraints</th>
+                <th>Analytical Observation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: 700; color: #EF4444;">Route A (Direct)</td>
+                <td>1,380 km</td>
+                <td>142 km²</td>
+                <td>18.4 km²</td>
+                <td>1.24 Lakhs</td>
+                <td>4 Clearances</td>
+                <td>Direct route; moderate environmental overlap.</td>
+              </tr>
+              <tr style="background: #F0FDF4;">
+                <td style="font-weight: 700; color: #3B82F6;">Route B (Bypass)</td>
+                <td>1,420 km</td>
+                <td>168 km²</td>
+                <td><strong style="color: var(--secondary-green);">8.2 km² (Lowest)</strong></td>
+                <td><strong style="color: var(--secondary-green);">0.98 Lakhs (Lowest)</strong></td>
+                <td>7 Clearances</td>
+                <td><span class="status-pill status-active">Lowest Forest & Population Impact</span></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 700; color: #A855F7;">Route C (HW Expansion)</td>
+                <td>1,365 km</td>
+                <td><strong style="color: var(--secondary-green);">124 km² (Lowest)</strong></td>
+                <td>24.6 km²</td>
+                <td>1.41 Lakhs</td>
+                <td>3 Clearances</td>
+                <td>Lowest agricultural parcel acquisition.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CROSS-DASHBOARD PROJECT WORKSPACE (RULE K) -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">🤝 Unified Project Workspace — Cross-Dashboard Layers</h3>
+          <span class="demo-badge">RULE K COMPLIANCE</span>
+        </div>
+        <div class="grid-4">
+          <div style="background: var(--bg-main); padding: 12px; border-radius: var(--radius-md);">
+            <div style="font-size: 11px; color: var(--text-muted);">🗄️ DATA LAYER</div>
+            <div style="font-size: 13px; font-weight: 600; margin-top: 4px;">Bhuvan & Census Linked</div>
+            <div style="font-size: 11px; color: var(--secondary-green); margin-top: 4px;">Updated by Data Officer</div>
+          </div>
+          <div style="background: var(--bg-main); padding: 12px; border-radius: var(--radius-md);">
+            <div style="font-size: 11px; color: var(--text-muted);">🔍 RESEARCH LAYER</div>
+            <div style="font-size: 13px; font-weight: 600; margin-top: 4px;">42 Papers Synthesized</div>
+            <div style="font-size: 11px; color: var(--secondary-green); margin-top: 4px;">Updated by Research Officer</div>
+          </div>
+          <div style="background: var(--bg-main); padding: 12px; border-radius: var(--radius-md);">
+            <div style="font-size: 11px; color: var(--text-muted);">⚖️ POLICY & LEGAL LAYER</div>
+            <div style="font-size: 13px; font-weight: 600; margin-top: 4px;">7 Constraints Identified</div>
+            <div style="font-size: 11px; color: var(--secondary-green); margin-top: 4px;">Updated by Policy Officer</div>
+          </div>
+          <div style="background: var(--bg-main); padding: 12px; border-radius: var(--radius-md);">
+            <div style="font-size: 11px; color: var(--text-muted);">🎯 DECISION LAYER</div>
+            <div style="font-size: 13px; font-weight: 600; margin-top: 4px;">3 Scenarios Analysed</div>
+            <div style="font-size: 11px; color: var(--primary-navy); margin-top: 4px;">Active Review</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/mockdata.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/decision.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      BhoomiShared.init("decision_dashboard.html", "overview");
+    });
+  </script>
+</body>
+</html>

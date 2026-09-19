@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BhoomiDrishti — Research Officer Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="layout-container">
+    <main class="main-content">
+      
+      <div class="breadcrumb">
+        <a href="research_dashboard.html">Home</a>
+        <span class="breadcrumb-separator">></span>
+        <span>Research & AI Analytics</span>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <div>
+          <h1 class="page-header-title">Research Officer Dashboard</h1>
+          <p class="page-header-subtitle">AI-assisted research search, literature synthesis, gap analysis, predictive modeling, and innovation hub</p>
+        </div>
+        <button onclick="openUploadModal()" class="btn btn-primary">📤 Upload Research Document</button>
+      </div>
+
+      <!-- NATIONAL INDICATORS: LAND DISPUTES & CLIMATE RESILIENCE (REQ 10, 11, 16) -->
+      <div class="grid-2">
+        <!-- DISPUTE STATS CARD -->
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-header">
+            <h3 class="card-title">⚖️ Land Dispute Statistics (National)</h3>
+            <span class="demo-badge">DEMO DATA</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <div>
+              <span style="font-size: 24px; font-weight: 700; color: var(--primary-navy);" id="activeDisputesVal">2,847</span>
+              <span style="font-size: 12px; color: var(--text-muted); display: block;">Active Disputes Tracked</span>
+            </div>
+            <span class="status-pill status-active">▼ 8.3% YoY Improvement</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Avg Resolution Time: <strong>14.2 months</strong> (prev: 16.8 months) | Digitized Records: <strong>74%</strong></p>
+          <div style="font-size: 12px; background: var(--bg-main); padding: 10px; border-radius: var(--radius-md);">
+            <strong>Top Dispute Category:</strong> Boundary Disputes (38%), Ownership Disputes (29%), Encroachment (19%)
+          </div>
+        </div>
+
+        <!-- CLIMATE RESILIENCE CARD -->
+        <div class="card" style="margin-bottom: 0;">
+          <div class="card-header">
+            <h3 class="card-title">🌡️ Climate Resilience Index — Land Governance</h3>
+            <span class="demo-badge">DISTRICT SCORE</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <div>
+              <span style="font-size: 24px; font-weight: 700; color: var(--primary-navy);">6.2 / 10</span>
+              <span style="font-size: 12px; color: var(--text-muted); display: block;">Maharashtra Overall Index</span>
+            </div>
+            <span class="status-pill status-warning">Moderate Climate Risk</span>
+          </div>
+          <div class="table-responsive">
+            <table class="gov-table" style="font-size: 12px;">
+              <thead>
+                <tr><th>District</th><th>Score</th><th>Risk Level</th><th>Trend</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Nagpur</td><td>7.1</td><td><span class="status-pill status-active">Low-Mod</span></td><td>→ Stable</td></tr>
+                <tr><td>Vidarbha</td><td>5.4</td><td><span class="status-pill status-error">High Risk</span></td><td>↓ Worsening</td></tr>
+                <tr><td>Pune</td><td>7.8</td><td><span class="status-pill status-active">Low Risk</span></td><td>↑ Improving</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABS FOR RESEARCH WORKFLOWS -->
+      <div class="nav-tabs" style="margin-top: 24px;">
+        <button class="tab-link active" onclick="switchResearchTab('search')">🔍 AI Search & Literature Synthesis</button>
+        <button class="tab-link" onclick="switchResearchTab('gap')">🔬 AI Research Gap Finder (Req 14)</button>
+        <button class="tab-link" onclick="switchResearchTab('predict')">🤖 AI Predictive Analytics (Req 14)</button>
+        <button class="tab-link" onclick="switchResearchTab('innovation')">💡 Innovation Hub (Req 15)</button>
+        <button class="tab-link" onclick="switchResearchTab('proposals')">📝 Research Proposals</button>
+      </div>
+
+      <!-- TAB 1: AI SEARCH & LITERATURE SYNTHESIS -->
+      <div id="tab-search" class="tab-pane active">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">🔍 Semantic AI Research Search & Evidence RAG</h3>
+            <span class="demo-badge">AI ASSISTED</span>
+          </div>
+          <div class="form-group" style="display: flex; gap: 12px;">
+            <input type="text" id="aiQueryInput" class="form-control" placeholder="Ask a research question (e.g. 'What is the impact of SVAMITVA digital land records on dispute reduction?')...">
+            <button onclick="runAiResearchSearch()" class="btn btn-primary" style="white-space: nowrap;">Search Repository</button>
+          </div>
+
+          <div id="aiSynthesisContainer" class="alert-box alert-info" style="display: none; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+              <strong>🤖 AI GENERATED LITERATURE SYNTHESIS</strong>
+              <span class="demo-badge">AI ANALYSIS</span>
+            </div>
+            <p id="aiSynthesisText" style="margin-top: 8px; font-size: 13px; line-height: 1.6;"></p>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">
+              ⚠️ AI Generated output based on 4 indexed documents. Verify against authoritative legal & research papers.
+            </div>
+          </div>
+
+          <div id="researchResultsGrid" class="grid-2"></div>
+        </div>
+      </div>
+
+      <!-- TAB 2: AI RESEARCH GAP FINDER (REQ 14) -->
+      <div id="tab-gap" class="tab-pane">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">🔬 AI Research Gap Finder</h3>
+            <span class="demo-badge">REQUIREMENT 14</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+            Analyzes published literature to identify under-researched land governance topics where empirical studies are lacking:
+          </p>
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Select Domain Area</label>
+              <select id="gapDomainSelect" class="form-control">
+                <option value="Dispute Resolution">Dispute Resolution & Legal Frameworks</option>
+                <option value="Urban Fringe">Urban-Rural Fringe Land Conversion</option>
+                <option value="Climate Adaptation">Climate Risk & Agricultural Land Adaptation</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Target State / Region</label>
+              <select id="gapRegionSelect" class="form-control">
+                <option value="Maharashtra">Maharashtra / Vidarbha</option>
+                <option value="Central India">Central India Tribal Belt</option>
+              </select>
+            </div>
+          </div>
+          <button onclick="runResearchGapAnalysis()" class="btn btn-primary">Find Research Gaps</button>
+
+          <div id="gapResultsContainer" style="margin-top: 20px;"></div>
+        </div>
+      </div>
+
+      <!-- TAB 3: AI PREDICTIVE ANALYTICS (REQ 14) -->
+      <div id="tab-predict" class="tab-pane">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">🤖 AI Predictive Outlook — Land Governance Trends</h3>
+            <span class="demo-badge">REQUIREMENT 14</span>
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Indicator To Model</label>
+              <select id="predictIndicatorSelect" class="form-control">
+                <option value="agri">Agricultural Land Conversion Rate (2025–2030)</option>
+                <option value="disputes">Land Dispute Resolution Time Horizon</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Projection Horizon</label>
+              <select class="form-control"><option>2030 Horizon</option><option>2035 Horizon</option></select>
+            </div>
+          </div>
+          <button onclick="runPredictiveModel()" class="btn btn-primary">Generate AI Trend Projection</button>
+
+          <div id="predictOutput" style="margin-top: 20px;"></div>
+        </div>
+      </div>
+
+      <!-- TAB 4: INNOVATION HUB (REQ 15) -->
+      <div id="tab-innovation" class="tab-pane">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">💡 BhoomiDrishti Innovation Hub (Requirement 15)</h3>
+            <span class="demo-badge">NATIONAL OPPORTUNITIES</span>
+          </div>
+          <div class="grid-2">
+            <!-- HACKATHONS -->
+            <div style="border: 1px solid var(--border-color); padding: 16px; border-radius: var(--radius-md);">
+              <span class="status-pill status-active">HACKATHON</span>
+              <h4 style="color: var(--primary-navy); margin: 8px 0;">🏆 LandTech Hackathon 2026</h4>
+              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Organizer: DoLR + NIC | Prize Pool: ₹10 Lakhs</p>
+              <p style="font-size: 13px;">Theme: AI-powered land dispute pre-screening and drone map analytics.</p>
+              <button onclick="BhoomiShared.showToast('Hackathon registration details opened.', 'info')" class="btn btn-sm btn-primary" style="margin-top: 12px;">Register Team (87 Registered)</button>
+            </div>
+
+            <!-- GRANTS -->
+            <div style="border: 1px solid var(--border-color); padding: 16px; border-radius: var(--radius-md);">
+              <span class="status-pill status-active">RESEARCH GRANT</span>
+              <h4 style="color: var(--primary-navy); margin: 8px 0;">💰 National Land Governance Research Grant</h4>
+              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Funding Body: DoLR / ICSSR | Amount: Up to ₹25 Lakhs</p>
+              <p style="font-size: 13px;">Focus: Empirical evaluation of land tenure security and digitised revenue records.</p>
+              <button onclick="BhoomiShared.showToast('Grant guidelines downloaded.', 'success')" class="btn btn-sm btn-primary" style="margin-top: 12px;">Apply / Download Guidelines</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: RESEARCH PROPOSALS -->
+      <div id="tab-proposals" class="tab-pane">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">📝 Research Proposal Pipeline</h3>
+            <button onclick="BhoomiShared.showToast('Submit Proposal modal dialog opened.', 'info')" class="btn btn-sm btn-primary">Submit New Proposal</button>
+          </div>
+          <div class="table-responsive">
+            <table class="gov-table">
+              <thead>
+                <tr><th>Proposal Title</th><th>Lead Researcher</th><th>Institution</th><th>Status Pipeline</th><th>Action</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight: 600; color: var(--primary-navy);">Impact Assessment of SVAMITVA in Tribal Districts</td>
+                  <td>Dr. Rekha Gupta</td>
+                  <td>IGIDR Mumbai</td>
+                  <td><span class="status-pill status-syncing">🔵 Under Review</span></td>
+                  <td><button onclick="BhoomiShared.showToast('Proposal details opened.', 'info')" class="btn btn-sm btn-secondary">Review</button></td>
+                </tr>
+                <tr>
+                  <td style="font-weight: 600; color: var(--primary-navy);">Urban-Rural Land Transition Patterns</td>
+                  <td>Prof. Sanjay Mehta</td>
+                  <td>IIT Delhi</td>
+                  <td><span class="status-pill status-active">🟢 Approved</span></td>
+                  <td><button onclick="BhoomiShared.showToast('Project active.', 'info')" class="btn btn-sm btn-secondary">Workspace</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/mockdata.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/research.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      BhoomiShared.init("research_dashboard.html", "overview");
+      renderResearchResults();
+    });
+
+    function switchResearchTab(tabName) {
+      document.querySelectorAll('.tab-link').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('tab-' + tabName).classList.add('active');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BhoomiDrishti — Data Officer Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="layout-container">
+    <main class="main-content">
+      
+      <div class="breadcrumb">
+        <a href="data_dashboard.html">Home</a>
+        <span class="breadcrumb-separator">></span>
+        <span>Data & Integration</span>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <div>
+          <h1 class="page-header-title">Data & Integration Officer Dashboard</h1>
+          <p class="page-header-subtitle">Monitors government dataset integrations, freshness, quality checks, and metadata validation</p>
+        </div>
+        <button onclick="triggerAllSync()" class="btn btn-primary">🔄 Sync All Data Streams</button>
+      </div>
+
+      <!-- STORY PANEL: HOW BHOOMIDRISHTI SOLVES THE UNDERUTILIZED DATA PROBLEM -->
+      <div class="card" style="background: linear-gradient(135deg, #FFFFFF 0%, #F5F7FA 100%); border-left: 4px solid var(--primary-navy);">
+        <div class="card-header">
+          <h3 class="card-title">💡 How BhoomiDrishti Solves the Underutilized Data Problem</h3>
+          <span class="demo-badge">GOVERNMENT WORKFLOW</span>
+        </div>
+        <div class="grid-2">
+          <div style="background: white; padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <h4 style="color: var(--error-red); font-size: 13px; margin-bottom: 8px;">❌ TRADITIONAL SCATTERED GOVT DATA</h4>
+            <ul style="font-size: 12.5px; color: var(--text-muted); padding-left: 18px; line-height: 1.6;">
+              <li>15+ isolated portals (Census, Bhuvan, Mahabhulekh, IMD)</li>
+              <li>Manual entry & duplicate land records</li>
+              <li>No unified quality validation or AI indexing</li>
+              <li>Underutilized research datasets trapped in PDFs</li>
+            </ul>
+          </div>
+          <div style="background: white; padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <h4 style="color: var(--secondary-green); font-size: 13px; margin-bottom: 8px;">✅ BHOOMIDRISHTI INTEGRATED WORKFLOW</h4>
+            <div style="font-size: 12px; font-weight: 600; color: var(--primary-navy); background: var(--accent-saffron-light); padding: 8px; border-radius: 4px; text-align: center; margin-bottom: 8px;">
+              Govt Data Sources → Secure API → Quality Check → Data Officer Review → Analytical Engine
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted);">
+              Data Officers monitor stream health and validate freshness rather than manually re-entering records.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DATA SOURCES GRID -->
+      <div class="card" id="sources">
+        <div class="card-header">
+          <h3 class="card-title">🗄️ Integrated Government Data Streams</h3>
+          <span class="demo-badge">SIMULATED INTEGRATION</span>
+        </div>
+        <div id="dataSourcesGrid" class="grid-3"></div>
+      </div>
+
+      <!-- INGESTION QUEUE WITH PROGRESS BARS -->
+      <div class="card" id="ingestion">
+        <div class="card-header">
+          <h3 class="card-title">📥 Live Data Ingestion & Quality Validation Queue</h3>
+          <span class="demo-badge">REALTIME MONITOR</span>
+        </div>
+        <div class="table-responsive">
+          <table class="gov-table">
+            <thead>
+              <tr>
+                <th>Dataset Name</th>
+                <th>Source Stream</th>
+                <th>Records Processed</th>
+                <th>Validation Progress</th>
+                <th>Quality Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: 600; color: var(--primary-navy);">Maharashtra LULC 2024 Vector</td>
+                <td>Bhuvan / NRSC</td>
+                <td>45,230 / 45,230</td>
+                <td style="width: 200px;">
+                  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 100%;"></div></div>
+                </td>
+                <td><span class="status-pill status-active">100% Validated</span></td>
+                <td><button onclick="BhoomiShared.showToast('Dataset validated and approved for GIS layer.', 'success')" class="btn btn-sm btn-secondary">Approve</button></td>
+              </tr>
+              <tr>
+                <td style="font-weight: 600; color: var(--primary-navy);">Nagpur District Land Parcels</td>
+                <td>Mahabhulekh API</td>
+                <td>21,840 / 28,000</td>
+                <td style="width: 200px;">
+                  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 78%;"></div></div>
+                </td>
+                <td><span class="status-pill status-syncing">Syncing (78%)</span></td>
+                <td><button onclick="BhoomiShared.showToast('Validation log reviewed.', 'info')" class="btn btn-sm btn-secondary">Logs</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/mockdata.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/data.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      BhoomiShared.init("data_dashboard.html", "overview");
+      renderDataSources();
+    });
+  </script>
+</body>
+</html>

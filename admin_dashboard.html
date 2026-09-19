@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BhoomiDrishti — System Administrator Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="layout-container">
+    <main class="main-content">
+      
+      <div class="breadcrumb">
+        <a href="admin_dashboard.html">Home</a>
+        <span class="breadcrumb-separator">></span>
+        <span>System Administration</span>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <div>
+          <h1 class="page-header-title">System Administrator Dashboard</h1>
+          <p class="page-header-subtitle">Platform health, user access controls, integration APIs, and audit trails</p>
+        </div>
+        <button onclick="openAddUserModal()" class="btn btn-primary">➕ Add Government User</button>
+      </div>
+
+      <!-- OVERVIEW STATS -->
+      <div class="grid-4">
+        <div class="stat-card">
+          <span class="stat-header">TOTAL REGISTERED USERS</span>
+          <span class="stat-value" id="statUsersCount">47</span>
+          <span class="stat-footer trend-up">▲ 6 Added This Month</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-header">ACTIVE SESSIONS TODAY</span>
+          <span class="stat-value">12</span>
+          <span class="stat-footer trend-up">🟢 Normal Operations</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-header">API CALLS PROCESSED</span>
+          <span class="stat-value">3,842</span>
+          <span class="stat-footer trend-up">▲ 12% vs Yesterday</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-header">SYSTEM UPTIME</span>
+          <span class="stat-value">99.8%</span>
+          <span class="stat-footer trend-up">🟢 SLAs Met</span>
+        </div>
+      </div>
+
+      <!-- USER MANAGEMENT SECTION -->
+      <div class="card" id="users">
+        <div class="card-header">
+          <h3 class="card-title">👥 Government User Directory & RBAC Status</h3>
+          <span class="demo-badge">ROLE RESTRICTED</span>
+        </div>
+        <div class="table-responsive">
+          <table class="gov-table" id="usersTable">
+            <thead>
+              <tr>
+                <th>User Name</th>
+                <th>Role</th>
+                <th>Department / Unit</th>
+                <th>Jurisdiction</th>
+                <th>Status</th>
+                <th>Last Login</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- API MANAGEMENT & OUTBOUND APIS (REQ 18) -->
+      <div class="card" id="apis">
+        <div class="card-header">
+          <h3 class="card-title">🔌 BhoomiDrishti Outbound APIs (Requirement 18)</h3>
+          <span class="demo-badge">SIMULATED API EXPOSURE</span>
+        </div>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+          Exposed API endpoints for integrating BhoomiDrishti research, GIS layers, and policy digests with external state revenue portals and national databases:
+        </p>
+        <div id="outboundApisContainer" class="grid-2"></div>
+      </div>
+
+      <!-- AUDIT LOGS SECTION -->
+      <div class="card" id="audit">
+        <div class="card-header">
+          <h3 class="card-title">📋 Platform Audit & Activity Logs</h3>
+          <button onclick="BhoomiShared.showToast('Audit log exported to CSV.', 'success')" class="btn btn-sm btn-secondary">⬇️ Export Audit Log CSV</button>
+        </div>
+        <div class="table-responsive">
+          <table class="gov-table">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>User</th>
+                <th>Role</th>
+                <th>Action</th>
+                <th>Resource Target</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2026-09-19 14:10:22</td>
+                <td>Rajesh Kumar Verma</td>
+                <td><span class="status-pill status-info">Admin</span></td>
+                <td>USER_LOGIN</td>
+                <td>System Admin Portal</td>
+                <td><span class="status-pill status-active">Success</span></td>
+              </tr>
+              <tr>
+                <td>2026-09-19 13:45:10</td>
+                <td>Priya Sharma</td>
+                <td><span class="status-pill status-active">Data</span></td>
+                <td>API_SYNC_TRIGGER</td>
+                <td>Bhuvan LULC Stream</td>
+                <td><span class="status-pill status-active">Success</span></td>
+              </tr>
+              <tr>
+                <td>2026-09-19 12:30:05</td>
+                <td>Dr. Anand Mishra</td>
+                <td><span class="status-pill status-partial">Research</span></td>
+                <td>AI_SYNTHESIS_GENERATE</td>
+                <td>Nagpur Project Corridor</td>
+                <td><span class="status-pill status-active">Success</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/mockdata.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/admin.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      BhoomiShared.init("admin_dashboard.html", "overview");
+      renderUsersTable();
+      renderOutboundApis();
+    });
+  </script>
+</body>
+</html>

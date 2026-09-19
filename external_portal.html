@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BhoomiDrishti — External Knowledge Partner Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="layout-container">
+    <main class="main-content">
+      
+      <div class="breadcrumb">
+        <a href="external_portal.html">Home</a>
+        <span class="breadcrumb-separator">></span>
+        <span>External Knowledge Partner</span>
+      </div>
+
+      <!-- WELCOME PANEL FOR EXTERNAL RESEARCHERS -->
+      <div class="card" style="background: white; border-left: 4px solid var(--info-blue);">
+        <div class="card-header">
+          <h3 class="card-title">🎓 Welcome, External Research Partner</h3>
+          <span class="role-badge external">Academic / Research Org Access</span>
+        </div>
+        <p style="font-size: 13.5px; color: var(--text-primary); margin-bottom: 12px;">
+          You are logged in as an <strong>External Knowledge Partner</strong> (IIT Bombay / Research Partner). You have read-only access to open-access research, public geospatial datasets, and national innovation grant calls.
+        </p>
+        <div style="font-size: 12px; display: flex; gap: 16px; color: var(--text-muted);">
+          <span>✅ Browse Open Research</span>
+          <span>✅ Download Public Datasets</span>
+          <span>✅ Submit Proposals</span>
+          <span>🔒 Restricted Govt Data Locked</span>
+        </div>
+      </div>
+
+      <!-- OPEN RESEARCH SEARCH FOR EXTERNAL PORTAL -->
+      <div class="card" id="browse">
+        <div class="card-header">
+          <h3 class="card-title">🔍 Open Research Repository Browser</h3>
+          <span class="demo-badge">PUBLIC ACCESS</span>
+        </div>
+        <div id="externalDocsGrid" class="grid-2"></div>
+      </div>
+
+      <!-- PUBLIC DATASETS DOWNLOAD -->
+      <div class="card" id="datasets">
+        <div class="card-header">
+          <h3 class="card-title">📊 Open Geospatial Datasets for Academic Use</h3>
+        </div>
+        <div class="table-responsive">
+          <table class="gov-table">
+            <thead>
+              <tr><th>Dataset Name</th><th>Agency</th><th>Format</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>LULC 2023 National Vector Series</td>
+                <td>ISRO NRSC</td>
+                <td>GeoTIFF</td>
+                <td><button onclick="BhoomiShared.showToast('Download started for academic dataset.', 'success')" class="btn btn-sm btn-secondary">⬇️ Download File</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/mockdata.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/external.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      BhoomiShared.init("external_portal.html", "welcome");
+      renderExternalDocs();
+    });
+  </script>
+</body>
+</html>
