@@ -23,9 +23,12 @@
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
         <div>
           <h1 class="page-header-title">Research Officer Dashboard</h1>
-          <p class="page-header-subtitle">AI-assisted research search, literature synthesis, gap analysis, predictive modeling, and innovation hub</p>
+          <p class="page-header-subtitle">AI-assisted research search, literature synthesis, gap analysis, RAG engine, and innovation hub</p>
         </div>
-        <button onclick="openUploadModal()" class="btn btn-primary">📤 Upload Research Document</button>
+        <div style="display: flex; gap: 10px;">
+          <button onclick="openRagArchitectureModal()" class="btn btn-secondary" style="border-color: var(--primary-navy); color: var(--primary-navy);">⚡ View RAG Pipeline Architecture</button>
+          <button onclick="openUploadModal()" class="btn btn-primary">📤 Upload Research Document</button>
+        </div>
       </div>
 
       <!-- NATIONAL INDICATORS: LAND DISPUTES & CLIMATE RESILIENCE (REQ 10, 11, 16) -->
@@ -90,22 +93,60 @@
       <div id="tab-search" class="tab-pane active">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">🔍 Semantic AI Research Search & Evidence RAG</h3>
-            <span class="demo-badge">AI ASSISTED</span>
+            <h3 class="card-title">🔍 Semantic AI Research Search & Retrieval-Augmented Generation (RAG)</h3>
+            <div>
+              <span class="demo-badge" style="margin-right: 8px;">RAG ENGINE ACTIVE</span>
+              <button onclick="openRagArchitectureModal()" class="btn btn-sm btn-secondary">📐 Inspect RAG Flow</button>
+            </div>
           </div>
-          <div class="form-group" style="display: flex; gap: 12px;">
-            <input type="text" id="aiQueryInput" class="form-control" placeholder="Ask a research question (e.g. 'What is the impact of SVAMITVA digital land records on dispute reduction?')...">
-            <button onclick="runAiResearchSearch()" class="btn btn-primary" style="white-space: nowrap;">Search Repository</button>
+          <div class="form-group" style="display: flex; gap: 12px; margin-bottom: 8px;">
+            <input type="text" id="aiQueryInput" class="form-control" placeholder="Ask a research or policy question (e.g. 'What is the impact of SVAMITVA digital land records on dispute reduction?')...">
+            <button onclick="runAiResearchSearch()" class="btn btn-primary" style="white-space: nowrap;">⚡ Run RAG Search</button>
+          </div>
+
+          <!-- Suggested RAG Query Chips -->
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+            <span style="font-size: 11px; color: var(--text-muted); align-self: center;">Try Sample Queries:</span>
+            <button onclick="setRagQuery('What is the impact of SVAMITVA digital land records on dispute reduction?')" class="btn btn-sm btn-secondary" style="font-size: 11px;">"SVAMITVA dispute reduction"</button>
+            <button onclick="setRagQuery('Urban fringe land conversion rates near Nagpur highway corridor')" class="btn btn-sm btn-secondary" style="font-size: 11px;">"Nagpur urban fringe land conversion"</button>
+            <button onclick="setRagQuery('RFCTLARR Act compensation multiplier guidelines')" class="btn btn-sm btn-secondary" style="font-size: 11px;">"RFCTLARR Act compensation rules"</button>
+          </div>
+
+          <!-- RAG PIPELINE STAGE OUTPUT -->
+          <div id="ragPipelineSteps" style="display: none; margin-bottom: 20px;">
+            <div class="grid-3" style="margin-bottom: 12px;">
+              <div style="background: #F0F4F8; padding: 10px 14px; border-radius: var(--radius-md); border-left: 3px solid var(--primary-navy);">
+                <span style="font-size: 10.5px; font-weight: 700; color: var(--primary-navy);">STEP 1: VECTOR EMBEDDING</span>
+                <div style="font-size: 11.5px; color: var(--text-muted);" id="ragStep1Text">Query embedded using 1536-dim vector model</div>
+              </div>
+              <div style="background: #F0F4F8; padding: 10px 14px; border-radius: var(--radius-md); border-left: 3px solid var(--info-blue);">
+                <span style="font-size: 10.5px; font-weight: 700; color: var(--info-blue);">STEP 2: VECTOR RETRIEVAL</span>
+                <div style="font-size: 11.5px; color: var(--text-muted);" id="ragStep2Text">Retrieved top 3 semantic chunks from DB</div>
+              </div>
+              <div style="background: #F0F4F8; padding: 10px 14px; border-radius: var(--radius-md); border-left: 3px solid var(--secondary-green);">
+                <span style="font-size: 10.5px; font-weight: 700; color: var(--secondary-green);">STEP 3: CITED GENERATION</span>
+                <div style="font-size: 11.5px; color: var(--text-muted);" id="ragStep3Text">Synthesized answer with inline citations</div>
+              </div>
+            </div>
           </div>
 
           <div id="aiSynthesisContainer" class="alert-box alert-info" style="display: none; flex-direction: column;">
             <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-              <strong>🤖 AI GENERATED LITERATURE SYNTHESIS</strong>
-              <span class="demo-badge">AI ANALYSIS</span>
+              <strong>🤖 AI GENERATED RAG SYNTHESIS WITH INLINE CITATIONS</strong>
+              <span class="demo-badge">AI TRANSPARENCY RULE C</span>
             </div>
             <p id="aiSynthesisText" style="margin-top: 8px; font-size: 13px; line-height: 1.6;"></p>
-            <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">
-              ⚠️ AI Generated output based on 4 indexed documents. Verify against authoritative legal & research papers.
+            
+            <div id="retrievedChunksBox" style="margin-top: 12px; background: white; padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+              <div style="font-size: 11.5px; font-weight: 700; color: var(--primary-navy); margin-bottom: 6px;">
+                📄 Top Retrieved Vector Chunks Used in Synthesis:
+              </div>
+              <div id="retrievedChunksList"></div>
+            </div>
+
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px; display: flex; justify-content: space-between;">
+              <span>⚠️ AI Generated output based on indexed documents. Verify against authoritative legal & research papers.</span>
+              <span>Confidence Score: <strong style="color: var(--secondary-green);">94.2% High</strong></span>
             </div>
           </div>
 
