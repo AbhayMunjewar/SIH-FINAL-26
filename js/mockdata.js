@@ -106,11 +106,22 @@ const BhoomiMockData = {
   },
 
   climateResilience: [
-    { district: "Nagpur", score: 7.1, risk: "Moderate", trend: "Stable" },
-    { district: "Vidarbha (Region)", score: 5.4, risk: "High", trend: "Worsening" },
-    { district: "Pune", score: 7.8, risk: "Low", trend: "Improving" },
-    { district: "Marathwada", score: 4.8, risk: "High", trend: "Worsening" },
-    { district: "Nashik", score: 6.9, risk: "Moderate", trend: "Stable" }
+    { district: "Nagpur", actualRainfall: "1184.2 mm", departurePct: "+12.3%", category: "Excess", score: 7.1, risk: "Moderate Flood Risk", trend: "Stable", period: "Monsoon 2024", attribution: "India Meteorological Department (IMD)" },
+    { district: "Mumbai City", actualRainfall: "2680.5 mm", departurePct: "+21.5%", category: "Large Excess", score: 5.2, risk: "High Inundation Risk", trend: "Worsening", period: "Monsoon 2024", attribution: "India Meteorological Department (IMD)" },
+    { district: "Thane", actualRainfall: "2840.1 mm", departurePct: "+17.8%", category: "Excess", score: 5.4, risk: "High Drainage Stress", trend: "Worsening", period: "Monsoon 2024", attribution: "India Meteorological Department (IMD)" },
+    { district: "Pune", actualRainfall: "985.4 mm", departurePct: "+10.7%", category: "Normal", score: 7.8, risk: "Low Risk", trend: "Improving", period: "Monsoon 2024", attribution: "India Meteorological Department (IMD)" },
+    { district: "Nashik", actualRainfall: "842.0 mm", departurePct: "+3.9%", category: "Normal", score: 6.9, risk: "Moderate Risk", trend: "Stable", period: "Monsoon 2024", attribution: "India Meteorological Department (IMD)" },
+    { district: "Amravati", actualRainfall: "720.6 mm", departurePct: "-14.7%", category: "Deficient", score: 5.4, risk: "Dry Spell Stress", trend: "Worsening", period: "Monsoon 2024", attribution: "India Meteorological Department (IMD)" },
+    { district: "Aurangabad (Chhatrapati Sambhajinagar)", actualRainfall: "510.2 mm", departurePct: "-24.4%", category: "Deficient", score: 4.8, risk: "High Drought Risk", trend: "Worsening", period: "Monsoon 2024", attribution: "India Meteorological Department (IMD)" }
+  ],
+
+  // ------------------------------------------------------------------------
+  // 3.1 IMD DISTRICT RAINFALL DATA STREAM (REQUIREMENT 10, 13, 14)
+  // ------------------------------------------------------------------------
+  imdRainfallData: [
+    { state: "Maharashtra", district: "Nagpur", actual_mm: 1184.2, normal_mm: 1054.3, departure_pct: 12.3, category: "Excess", period: "Monsoon 2024", updated: "2024-09-30", risk: "Candidate land parcels require additional drainage assessment due to +12.3% excess monsoon runoff." },
+    { state: "Maharashtra", district: "Thane", actual_mm: 2840.1, normal_mm: 2410.0, departure_pct: 17.8, category: "Excess", period: "Monsoon 2024", updated: "2024-09-30", risk: "High coastal & urban drainage stress. Land acquisition corridors require 200m buffer from flood zones." },
+    { state: "Maharashtra", district: "Aurangabad", actual_mm: 510.2, normal_mm: 675.0, departure_pct: -24.4, category: "Deficient", period: "Monsoon 2024", updated: "2024-09-30", risk: "Severe rainfed agricultural stress (-24.4%). Drought-adaptive land pooling policy recommended." }
   ],
 
   // ------------------------------------------------------------------------

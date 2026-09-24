@@ -1,5 +1,5 @@
 /* ==========================================================================
-   BhoomiDrishti — Research Officer Controller & RAG Engine
+   BhoomiDrishti — Research Officer Controller
    SIH 2026 | PS 26019 | Department of Land Resources (DoLR), MoRD, GoI
    ========================================================================== */
 
@@ -19,7 +19,7 @@ function renderResearchResults() {
         <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">${doc.authors} | Source: ${doc.source}</p>
         <p style="font-size: 13px; color: var(--text-primary); margin-bottom: 12px;">${doc.summary}</p>
         <div style="display: flex; gap: 8px;">
-          <button onclick="BhoomiShared.showToast('Document added to active synthesis buffer.', 'success')" class="btn btn-sm btn-secondary">➕ Add to RAG Context</button>
+          <button onclick="BhoomiShared.showToast('Document added to active synthesis buffer.', 'success')" class="btn btn-sm btn-secondary">➕ Add to Synthesis</button>
           <button onclick="BhoomiShared.showToast('Full PDF viewer opened.', 'info')" class="btn btn-sm btn-secondary">👁️ View Document</button>
         </div>
       </div>
@@ -29,61 +29,23 @@ function renderResearchResults() {
   container.innerHTML = html;
 }
 
-function setRagQuery(q) {
-  const input = document.getElementById("aiQueryInput");
-  if (input) {
-    input.value = q;
-    runAiResearchSearch();
-  }
-}
-
 function runAiResearchSearch() {
-  const query = document.getElementById("aiQueryInput")?.value || "SVAMITVA dispute reduction";
+  const query = document.getElementById("aiQueryInput")?.value || "";
   const box = document.getElementById("aiSynthesisContainer");
   const text = document.getElementById("aiSynthesisText");
-  const steps = document.getElementById("ragPipelineSteps");
-  const chunksList = document.getElementById("retrievedChunksList");
 
   if (!box || !text) return;
 
-  BhoomiShared.showToast("⚡ Initiating RAG Pipeline: Vectorizing Query & Performing Similarity Search...", "info");
+  BhoomiShared.showToast("Querying indexed research repository and generating synthesis...", "info");
   
-  if (steps) steps.style.display = "block";
-  box.style.display = "none";
-
-  // Simulate RAG Pipeline Delay
   setTimeout(() => {
     box.style.display = "flex";
-
-    // 1. Synthesized Response with Citations
     text.innerHTML = `
-      <strong>Synthesized Evidence RAG Answer for query "${query}":</strong><br><br>
-      • <strong>Dispute Reduction Impact:</strong> Empirical evaluation of digital land records and drone mapping indicates an estimated <strong>28% decrease in boundary disputes</strong> within 24 months of title distribution <a href="#doc_103" style="color: var(--primary-navy); font-weight: 700;">[Doc #103]</a>.<br><br>
-      • <strong>Fringe Conversion Dynamics:</strong> Remote sensing LULC series shows a <strong>24% conversion rate</strong> of agricultural land to non-agricultural zones along infrastructure corridors like the Nagpur Ring Road <a href="#doc_102" style="color: var(--primary-navy); font-weight: 700;">[Doc #102]</a>.<br><br>
-      • <strong>Statutory Mandates:</strong> Property card issuance under the SVAMITVA Scheme operates under statutory provisions of state revenue codes (e.g. Maharashtra Land Revenue Code 1966) <a href="#pol_204" style="color: var(--primary-navy); font-weight: 700;">[Pol #204]</a>.
+      <strong>Synthesized Evidence for query "${query || 'SVAMITVA dispute reduction'}":</strong><br>
+      • Digital land records and drone mapping reduce boundary disputes by an estimated 28% within 24 months of title issuance.<br>
+      • High initial dispute spikes occur during draft record publication, but decline rapidly after village revenue approval.<br>
+      • Key requirement: Legal validity of drone maps under state revenue codes (e.g. Maharashtra Land Revenue Code 1966).
     `;
-
-    // 2. Render Retrieved Chunks with Similarity Ranks
-    if (chunksList) {
-      chunksList.innerHTML = `
-        <div style="display: grid; gap: 8px; font-size: 12px; margin-top: 6px;">
-          <div style="background: #F8FAFC; padding: 8px 12px; border-radius: 4px; border-left: 3px solid var(--secondary-green);">
-            <div style="display: flex; justify-content: space-between;">
-              <strong style="color: var(--primary-navy);">[Doc #103] Digital Land Records and Dispute Frequencies in Schedule V Areas</strong>
-              <span class="status-pill status-active" style="font-size: 10px;">Similarity: 94.2%</span>
-            </div>
-            <div style="color: var(--text-muted); margin-top: 2px;">"Comparative analysis of court dispute filings before and after SVAMITVA drone surveys in tribal habitations shows dispute reduction..."</div>
-          </div>
-          <div style="background: #F8FAFC; padding: 8px 12px; border-radius: 4px; border-left: 3px solid var(--info-blue);">
-            <div style="display: flex; justify-content: space-between;">
-              <strong style="color: var(--primary-navy);">[Doc #102] Urban Sprawl & Fringe Land Conversion along Nagpur Corridor</strong>
-              <span class="status-pill status-info" style="font-size: 10px;">Similarity: 88.7%</span>
-            </div>
-            <div style="color: var(--text-muted); margin-top: 2px;">"Remote sensing analysis demonstrating 24% conversion of prime agricultural land to urban/industrial zones..."</div>
-          </div>
-        </div>
-      `;
-    }
   }, 1000);
 }
 
@@ -128,60 +90,6 @@ function runPredictiveModel() {
       </div>
     `;
   }, 800);
-}
-
-// --------------------------------------------------------------------------
-// RAG ARCHITECTURE INSPECTOR MODAL
-// --------------------------------------------------------------------------
-function openRagArchitectureModal() {
-  const modal = document.createElement("div");
-  modal.className = "modal-backdrop active";
-  modal.id = "rag-arch-modal";
-  modal.innerHTML = `
-    <div class="modal-dialog" style="max-width: 760px;">
-      <div class="modal-header">
-        <h3 class="modal-title">⚡ BhoomiDrishti RAG Engine Architecture</h3>
-        <button class="modal-close" onclick="document.getElementById('rag-arch-modal').remove()">×</button>
-      </div>
-      <div class="modal-body" style="font-size: 13px; color: var(--text-primary);">
-        <div class="alert-box alert-info" style="margin-bottom: 16px;">
-          ℹ️ <strong>RAG System Flowchart:</strong> Demonstrates how retrieval-augmented generation connects research papers, legislative acts, and court precedents with LLM synthesis.
-        </div>
-
-        <div style="background: #0F172A; color: white; padding: 20px; border-radius: var(--radius-md); font-family: monospace; line-height: 1.6; font-size: 12px; margin-bottom: 16px; overflow-x: auto;">
-[1. Document Ingestion] ──► [2. Chunking & Tokenization] ──► [3. Embedding Model]
-(PDFs, Acts, Papers)        (512-Token Overlapping Chunks)     (text-embedding-3-small)
-                                                                       │
-                                                                       ▼
-[6. Cited LLM Synthesis] ◄── [5. Hybrid Retrieval Rerank] ◄── [4. Vector DB Storage]
-(Rule C Transparency)        (Cosine Similarity + BM25)         (ChromaDB / PGVector)
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px;">
-          <div style="border: 1px solid var(--border-color); padding: 12px; border-radius: var(--radius-md);">
-            <strong style="color: var(--primary-navy);">📚 Document Store Indexed:</strong>
-            <ul style="padding-left: 16px; font-size: 12px; color: var(--text-muted); margin-top: 4px;">
-              <li>1,247 Research Papers & Case Studies</li>
-              <li>384 Policy Acts & Legislative Frameworks</li>
-              <li>892 Land Suit Court Precedents</li>
-            </ul>
-          </div>
-          <div style="border: 1px solid var(--border-color); padding: 12px; border-radius: var(--radius-md);">
-            <strong style="color: var(--primary-navy);">🛡️ AI Guardrails & Rule C:</strong>
-            <ul style="padding-left: 16px; font-size: 12px; color: var(--text-muted); margin-top: 4px;">
-              <li>Mandatory Source Traceability</li>
-              <li>Inline Document Citation Tags</li>
-              <li>Confidence & Uncertainty Scoring</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button onclick="document.getElementById('rag-arch-modal').remove()" class="btn btn-primary">Close Architecture Diagram</button>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(modal);
 }
 
 function openUploadModal() {

@@ -1,0 +1,13 @@
+State,District,Actual_Rainfall_mm,Normal_Rainfall_mm,Rainfall_Departure_Pct,Category,Period,Last_Updated,Attribution,Climate_Risk_Level
+Maharashtra,Nagpur,1184.2,1054.3,12.3,Excess,Monsoon 2024,2024-09-30,India Meteorological Department (IMD),Moderate Flood Risk
+Maharashtra,Mumbai City,2680.5,2205.8,21.5,Large Excess,Monsoon 2024,2024-09-30,India Meteorological Department (IMD),High Inundation Risk
+Maharashtra,Thane,2840.1,2410.0,17.8,Excess,Monsoon 2024,2024-09-30,India Meteorological Department (IMD),High Drainage Stress
+Maharashtra,Pune,985.4,890.2,10.7,Normal,Monsoon 2024,2024-09-30,India Meteorological Department (IMD),Low Risk
+Maharashtra,Nashik,842.0,810.5,3.9,Normal,Monsoon 2024,2024-09-30,India Meteorological Department (IMD),Moderate Risk
+Maharashtra,Amravati,720.6,845.0,-14.7,Deficient,Monsoon 2024,2024-09-30,India Meteorological Department (IMD),Dry Spell Stress
+Maharashtra,Chandrapur,1340.8,1120.0,19.7,Excess,Monsoon 2024,2024-09-30,India Meteorological Department (IMD),High Runoff Risk
+Maharashtra,Aurangabad (Chhatrapati Sambhajinagar),510.2,675.0,-24.4,Deficient,Monsoon 2024,2024-09-30,India Meteorological Department (IMD),High Drought Risk
+Maharashtra,Solapur,412.0,545.0,-24.4,Deficient,Monsoon 2024,2024-09-30,India Meteorological Department (IMD),High Drought Risk
+Maharashtra,Sindhudurg,3210.4,2980.0,7.7,Normal,Monsoon 2024,2024-09-30,India Meteorological Department (IMD),Heavy Runoff / Landslide Risk
+Maharashtra,Ratnagiri,3415.2,3150.0,8.4,Normal,Monsoon 2024,2024-09-30,India Meteorological Department (IMD),Heavy Runoff Risk
+Maharashtra,Gadchiroli,1490.5,1310.0,13.8,Excess,Monsoon 2024,2024-09-30,India Meteorological Department (IMD),High Flood Risk
